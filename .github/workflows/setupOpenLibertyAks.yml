@@ -16,7 +16,7 @@ on:
         required: true
   repository_dispatch:
   schedule:
-    - cron: '0 0 27 * *' # run the workflow at the end of 27th monthly.
+    - cron: '0 0 28 * *' # run the workflow at the end of 27th monthly.
 
 env:
   refArmttk: c11a62d4ae011ee96fdecc76d76d811c5b5a99ce
