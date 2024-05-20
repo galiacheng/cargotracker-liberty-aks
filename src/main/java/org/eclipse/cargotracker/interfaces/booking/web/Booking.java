@@ -14,6 +14,8 @@ import jakarta.inject.Named;
 import org.eclipse.cargotracker.interfaces.booking.facade.BookingServiceFacade;
 import org.eclipse.cargotracker.interfaces.booking.facade.dto.Location;
 import org.primefaces.PrimeFaces;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Handles booking cargo. Operates against a dedicated service facade, and could easily be rewritten
@@ -35,6 +37,7 @@ public class Booking implements Serializable {
 
   @Inject private BookingServiceFacade bookingServiceFacade;
   @Inject private FacesContext context;
+  @Inject private Logger logger;
 
   private LocalDate today = null;
   private List<Location> locations;
@@ -50,11 +53,17 @@ public class Booking implements Serializable {
 
   @PostConstruct
   public void init() {
+    logger.log(
+        Level.INFO, "Booking initialized with bookingServiceFacade.");
     today = LocalDate.now();
     locations = bookingServiceFacade.listShippingLocations();
+    logger.log(
+        Level.INFO, "Booking initialized with bookingServiceFacade {0}.", locations.size());
   }
 
   public List<Location> getLocations() {
+    logger.log(
+        Level.INFO, "Booking getLocations.");
     List<Location> filteredLocations = new ArrayList<>();
     String locationToRemove = null;
 
@@ -73,10 +82,15 @@ public class Booking implements Serializable {
       }
     }
 
+    logger.log(
+        Level.INFO, "Booking getLocations 2.");
+
     return filteredLocations;
   }
 
   public String getOriginUnlocode() {
+    logger.log(
+        Level.INFO, "Booking originUnlocode {0}.", originUnlocode);
     return originUnlocode;
   }
 
@@ -92,10 +106,14 @@ public class Booking implements Serializable {
   }
 
   public String getOriginName() {
+    logger.log(
+        Level.INFO, "Booking originName {0}.", originName);
     return originName;
   }
 
   public String getDestinationUnlocode() {
+    logger.log(
+        Level.INFO, "Booking destinationUnlocode {0}.", destinationUnlocode);
     return destinationUnlocode;
   }
 
